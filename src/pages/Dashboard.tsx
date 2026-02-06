@@ -11,6 +11,7 @@ import ExplainabilityPanel from "@/components/ExplainabilityPanel";
 import CareerInsights from "@/components/CareerInsights";
 import ResumeHeatmap from "@/components/ResumeHeatmap";
 import HiringManagerSimulator from "@/components/HiringManagerSimulator";
+import InterviewPrep from "@/components/InterviewPrep";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Dashboard = () => {
@@ -161,6 +162,17 @@ const Dashboard = () => {
               risks={result.risk_areas}
               summary={result.career_fit_summary}
               hiringFeedback={result.hiring_manager_feedback}
+            />
+          </motion.div>
+
+          {/* Row 7: Interview Preparation */}
+          <motion.div className="lg:col-span-3" variants={fadeUp}>
+            <InterviewPrep
+              analysisSummary={result.career_fit_summary}
+              matchedSkills={result.matched_skills.map(s => s.name)}
+              missingSkills={result.missing_skills.map(s => s.name)}
+              strengths={result.strength_areas}
+              risks={result.risk_areas}
             />
           </motion.div>
         </motion.div>
