@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
 import JobDescriptionInput from "@/components/JobDescriptionInput";
 import AnalysisLoader from "@/components/AnalysisLoader";
-import { simulateAnalysis } from "@/lib/mockAnalysis";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -18,10 +19,31 @@ const Analyze = () => {
 
   const handleAnalyze = async () => {
     setIsAnalyzing(true);
-    const result = await simulateAnalysis();
-    // Store result and navigate
-    sessionStorage.setItem("analysisResult", JSON.stringify(result));
-    navigate("/dashboard");
+    try {
+      const { data, error } = await supabase.functions.invoke("analyze-resume", {
+        body: { resume_text: resumeText, job_description: jobDesc },
+      });
+
+      if (error) {
+        console.error("Analysis error:", error);
+        toast.error("Analysis failed. Please try again.");
+        setIsAnalyzing(false);
+        return;
+      }
+
+      if (data?.error) {
+        toast.error(data.error);
+        setIsAnalyzing(false);
+        return;
+      }
+
+      sessionStorage.setItem("analysisResult", JSON.stringify(data));
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Analysis error:", err);
+      toast.error("Something went wrong. Please try again.");
+      setIsAnalyzing(false);
+    }
   };
 
   if (isAnalyzing) {
