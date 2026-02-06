@@ -1,73 +1,130 @@
-# Welcome to your Lovable project
+# 🚀 ResumeChecker — AI Resume Intelligence Platform
 
-## Project info
+🔗 Live Demo: https://resumechecker-ten.vercel.app/
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+ResumeChecker is a modern AI-powered resume analysis platform designed to deliver deep career insights through intelligent resume evaluation, skill-gap detection, and hiring perspective simulation.
 
-## How can I edit this code?
+Instead of providing basic static feedback, ResumeChecker creates an immersive AI-driven experience that visually explains how a resume aligns with specific job roles.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 🤖 AI Resume Analysis
+- Semantic comparison between resume and target job description
+- AI-generated match score (0–100)
+- Context-aware evaluation using modern AI reasoning
+- Structured career insights and recommendations
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🎯 Hiring Manager Simulator
+Simulates recruiter perspective:
 
-**Use your preferred IDE**
+- Shortlist decision (Yes / Maybe / No)
+- Strength analysis
+- Risk detection
+- Hiring concerns
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Provides realistic feedback similar to human evaluation.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📊 Skill Intelligence Visualization
+- Identifies matched skills vs missing requirements
+- Interactive skill gap analysis
+- Clear improvement guidance
 
-Follow these steps:
+### 🔥 Resume Heatmap Analysis
+Visual AI interpretation:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- 🟢 Strong alignment sections
+- 🟡 Moderate relevance
+- 🔴 Weak or irrelevant content
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Helps users instantly understand resume effectiveness.
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 🧠 Explainable AI Insights
+Transparent reasoning behind analysis:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+- Skill alignment factors
+- Semantic similarity analysis
+- Experience relevance
+- Keyword coverage evaluation
 
-**Edit a file directly in GitHub**
+### ✍️ AI Rewrite Assistant
+Side-by-side improvement suggestions:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Original resume content
+- AI-enhanced rewrite examples
 
-**Use GitHub Codespaces**
+### ⚡ Immersive AI Experience
+Multi-stage animated analysis workflow:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Resume parsing
+2. Job requirement understanding
+3. Skill mapping
+4. Gap evaluation
+5. Insight generation
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## 🎨 Design Philosophy
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+ResumeChecker focuses on:
 
-## How can I deploy this project?
+- Modern SaaS-level interface design
+- Interactive and immersive experience
+- Visual storytelling of AI reasoning
+- Clean and minimal aesthetics
+- Smooth animations and transitions
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+The goal is to make AI intelligence both powerful and visually understandable.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🧩 Tech Stack
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- AI Engine: Gemini Flash (via Lovable Cloud)
+- Frontend: Modern component-based web architecture
+- Backend: Serverless AI workflow
+- Deployment: Vercel
+- Development Platform: Lovable
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 🚀 How It Works
+
+1. Upload your resume (PDF format).
+2. Enter a target job description.
+3. AI analyzes semantic alignment.
+4. Interactive dashboard presents insights, risks, and recommendations.
+
+---
+
+## 💡 Motivation
+
+Traditional resume tools provide generic feedback. ResumeChecker aims to simulate real hiring evaluation by combining:
+
+- AI semantic reasoning
+- explainable insights
+- immersive visualization
+- interactive analysis workflows
+
+---
+
+## 📌 Future Enhancements
+
+- ATS optimization scoring
+- Career path recommendations
+- Interview readiness prediction
+- Multi-role comparison mode
+- Exportable AI analysis reports
+
+---
+
+## 📄 License
+
+This project is intended for educational, research, and portfolio purposes.
+
+---
+
+## 🙌 Author
+
+Developed as an exploration into modern AI-driven UX, combining machine learning concepts with immersive interface design.
