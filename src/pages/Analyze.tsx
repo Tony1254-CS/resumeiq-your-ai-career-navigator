@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
 import JobDescriptionInput from "@/components/JobDescriptionInput";
 import AnalysisLoader from "@/components/AnalysisLoader";
+import ThemeToggle from "@/components/ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -50,6 +51,7 @@ const Analyze = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center relative">
         <div className="floating-orb w-[400px] h-[400px] bg-primary/15 top-20 right-20 animate-pulse-glow" />
+        <div className="floating-orb w-[300px] h-[300px] bg-accent/10 bottom-20 left-20 animate-pulse-glow" />
         <AnalysisLoader />
       </div>
     );
@@ -61,14 +63,18 @@ const Analyze = () => {
       <div className="floating-orb w-[300px] h-[300px] bg-accent/10 -bottom-20 -left-20 animate-pulse-glow" />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-12">
-        <motion.button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to home
-        </motion.button>
+        <div className="flex items-center justify-between mb-8">
+          <motion.button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ x: -4 }}
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to home
+          </motion.button>
+          <ThemeToggle />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -84,25 +90,33 @@ const Analyze = () => {
         </motion.div>
 
         <div className="space-y-6">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
             <label className="text-sm font-medium text-foreground mb-2 block">1. Your Resume</label>
             <FileUpload onFileContent={setResumeText} />
             {!resumeText && (
               <motion.div className="mt-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
                 <p className="text-xs text-muted-foreground mb-2">Or paste your resume text:</p>
                 <textarea
-                  className="w-full h-32 rounded-lg bg-secondary/50 border border-border p-3 text-sm text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-1 focus:ring-primary/30"
+                  className="w-full h-32 rounded-lg bg-secondary/50 border border-border p-3 text-sm text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-1 focus:ring-primary/30 transition-shadow"
                   placeholder="Paste resume content here..."
                   onChange={(e) => setResumeText(e.target.value)}
                 />
               </motion.div>
             )}
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             <label className="text-sm font-medium text-foreground mb-2 block">2. Target Job Description</label>
             <JobDescriptionInput value={jobDesc} onChange={setJobDesc} />
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -113,7 +127,7 @@ const Analyze = () => {
               size="lg"
               disabled={!canAnalyze}
               onClick={handleAnalyze}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-display font-semibold py-6 text-base shadow-[0_0_30px_hsl(var(--glow-primary))] disabled:opacity-30 disabled:shadow-none"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-display font-semibold py-6 text-base shadow-[0_0_30px_hsl(var(--glow-primary))] disabled:opacity-30 disabled:shadow-none transition-all"
             >
               <Brain className="mr-2 h-5 w-5" />
               Analyze with AI

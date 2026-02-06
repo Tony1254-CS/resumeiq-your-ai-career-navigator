@@ -27,4 +27,5 @@ export interface AnalysisResult {
   strength_areas: string[];
   risk_areas: string[];
   career_fit_summary: string;
+  hiring_manager_feedback: string;
 }

@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Index = () => {
   return (
@@ -12,7 +13,10 @@ const Index = () => {
             </div>
             <span className="font-display font-bold text-foreground text-lg">ResumeIQ</span>
           </div>
-          <div className="text-sm text-muted-foreground">AI Career Intelligence</div>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground hidden sm:block">AI Career Intelligence</span>
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 

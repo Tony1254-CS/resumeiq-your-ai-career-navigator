@@ -53,6 +53,7 @@ export const mockAnalysisResult: AnalysisResult = {
     "Limited mention of testing methodologies",
   ],
   career_fit_summary: "You're a strong frontend candidate with 78% alignment to this role. Your React and TypeScript skills are excellent matches. The main gaps are in cloud infrastructure and DevOps practices. Adding even basic AWS or Docker experience would significantly boost your profile. Consider highlighting any backend work or API design experience more prominently.",
+  hiring_manager_feedback: "This candidate shows solid frontend fundamentals and would be productive quickly on our React codebase. However, I'd want to see some cloud experience before extending an offer for this senior role. Worth a technical screen to assess system design thinking.",
 };
 
 export function simulateAnalysis(): Promise<AnalysisResult> {
