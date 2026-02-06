@@ -1,6 +1,13 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Upload, FileText, X } from "lucide-react";
+import { Upload, FileText, X, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import * as pdfjsLib from "pdfjs-dist";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.mjs",
+  import.meta.url
+).toString();
 
 interface FileUploadProps {
   onFileContent: (text: string) => void;
@@ -9,14 +16,47 @@ interface FileUploadProps {
 const FileUpload = ({ onFileContent }: FileUploadProps) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
 
-  const handleFile = useCallback((file: File) => {
+  const extractPdfText = async (file: File): Promise<string> => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const pages: string[] = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      pages.push(content.items.map((item: any) => item.str).join(" "));
+    }
+    return pages.join("\n\n");
+  };
+
+  const handleFile = useCallback(async (file: File) => {
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
     setFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      onFileContent(e.target?.result as string);
-    };
-    reader.readAsText(file);
+
+    if (isPdf) {
+      setIsParsing(true);
+      try {
+        const text = await extractPdfText(file);
+        if (!text.trim()) {
+          toast.error("Could not extract text from this PDF. It may be image-based. Try pasting your resume text instead.");
+          setFileName(null);
+          setIsParsing(false);
+          return;
+        }
+        onFileContent(text);
+      } catch (err) {
+        console.error("PDF parse error:", err);
+        toast.error("Failed to parse PDF. Try a different file or paste your resume text.");
+        setFileName(null);
+      } finally {
+        setIsParsing(false);
+      }
+    } else {
+      const reader = new FileReader();
+      reader.onload = (e) => onFileContent(e.target?.result as string);
+      reader.readAsText(file);
+    }
   }, [onFileContent]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -56,7 +96,15 @@ const FileUpload = ({ onFileContent }: FileUploadProps) => {
         id="resume-upload"
       />
       
-      {fileName ? (
+      {isParsing ? (
+        <div className="flex items-center justify-center gap-3">
+          <Loader2 className="h-8 w-8 text-primary animate-spin" />
+          <div className="text-left">
+            <p className="text-foreground font-medium">Parsing PDF...</p>
+            <p className="text-sm text-muted-foreground">Extracting resume content</p>
+          </div>
+        </div>
+      ) : fileName ? (
         <div className="flex items-center justify-center gap-3">
           <FileText className="h-8 w-8 text-primary" />
           <div className="text-left">
