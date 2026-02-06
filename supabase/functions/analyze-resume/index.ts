@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are an expert career analyst AI. Given a resume and a
 
 You MUST respond by calling the "analyze_resume" function with structured data. Do not output plain text.
 
-Be specific, actionable, and honest in your analysis. Use the actual content from the resume and job description to make your assessment.`;
+Be specific, actionable, and honest in your analysis. Use the actual content from the resume and job description to make your assessment. Provide professional, non-generic feedback that references specific details from the resume.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -32,13 +32,7 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const userPrompt = `## Resume:
-${resume_text}
-
-## Job Description:
-${job_description}
-
-Analyze this resume against the job description. Provide a match score (0-100), identify matched and missing skills, keyword coverage, improvement suggestions, rewrite one weak bullet point, and provide career insights.`;
+    const userPrompt = `## Resume:\n${resume_text}\n\n## Job Description:\n${job_description}\n\nAnalyze this resume against the job description thoroughly.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -61,15 +55,8 @@ Analyze this resume against the job description. Provide a match score (0-100), 
               parameters: {
                 type: "object",
                 properties: {
-                  match_score: {
-                    type: "number",
-                    description: "Overall match score 0-100",
-                  },
-                  confidence_level: {
-                    type: "string",
-                    enum: ["High", "Medium", "Low"],
-                    description: "Confidence in the analysis",
-                  },
+                  match_score: { type: "number", description: "Overall match score 0-100" },
+                  confidence_level: { type: "string", enum: ["High", "Medium", "Low"] },
                   matched_skills: {
                     type: "array",
                     items: {
@@ -81,7 +68,6 @@ Analyze this resume against the job description. Provide a match score (0-100), 
                       required: ["name", "relevance"],
                       additionalProperties: false,
                     },
-                    description: "Skills found in both resume and job description",
                   },
                   missing_skills: {
                     type: "array",
@@ -94,7 +80,6 @@ Analyze this resume against the job description. Provide a match score (0-100), 
                       required: ["name", "importance"],
                       additionalProperties: false,
                     },
-                    description: "Skills required by job but missing from resume",
                   },
                   keyword_coverage: {
                     type: "array",
@@ -107,48 +92,26 @@ Analyze this resume against the job description. Provide a match score (0-100), 
                       required: ["keyword", "found"],
                       additionalProperties: false,
                     },
-                    description: "Key terms from job description and whether they appear in resume",
                   },
-                  improvement_suggestions: {
-                    type: "array",
-                    items: { type: "string" },
-                    description: "Actionable suggestions to improve the resume for this role",
-                  },
+                  improvement_suggestions: { type: "array", items: { type: "string" } },
                   rewritten_bullet: {
                     type: "object",
                     properties: {
-                      original: { type: "string", description: "A weak bullet point from the resume" },
-                      improved: { type: "string", description: "An improved version with metrics and impact" },
+                      original: { type: "string" },
+                      improved: { type: "string" },
                     },
                     required: ["original", "improved"],
                     additionalProperties: false,
                   },
-                  strength_areas: {
-                    type: "array",
-                    items: { type: "string" },
-                    description: "Areas where the candidate is strong for this role",
-                  },
-                  risk_areas: {
-                    type: "array",
-                    items: { type: "string" },
-                    description: "Potential concerns a hiring manager might have",
-                  },
-                  career_fit_summary: {
-                    type: "string",
-                    description: "2-3 sentence summary of overall fit from a hiring manager perspective",
-                  },
+                  strength_areas: { type: "array", items: { type: "string" } },
+                  risk_areas: { type: "array", items: { type: "string" } },
+                  career_fit_summary: { type: "string", description: "2-3 sentence summary of overall fit" },
+                  hiring_manager_feedback: { type: "string", description: "Direct, candid feedback as if from a hiring manager reviewing this application. 2-3 sentences." },
                 },
                 required: [
-                  "match_score",
-                  "confidence_level",
-                  "matched_skills",
-                  "missing_skills",
-                  "keyword_coverage",
-                  "improvement_suggestions",
-                  "rewritten_bullet",
-                  "strength_areas",
-                  "risk_areas",
-                  "career_fit_summary",
+                  "match_score", "confidence_level", "matched_skills", "missing_skills",
+                  "keyword_coverage", "improvement_suggestions", "rewritten_bullet",
+                  "strength_areas", "risk_areas", "career_fit_summary", "hiring_manager_feedback",
                 ],
                 additionalProperties: false,
               },

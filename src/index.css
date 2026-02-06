@@ -52,6 +52,52 @@
     --sidebar-border: 222 30% 18%;
     --sidebar-ring: 175 80% 50%;
   }
+
+  .light {
+    --background: 210 30% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 175 80% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 93%;
+    --secondary-foreground: 222 30% 30%;
+
+    --muted: 210 20% 93%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 260 50% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
+    --ring: 175 80% 38%;
+
+    --glass: 0 0% 100% / 0.7;
+    --glass-border: 175 80% 38% / 0.2;
+    --glow-primary: 175 80% 38% / 0.15;
+    --glow-accent: 260 50% 55% / 0.12;
+    --success: 150 60% 40%;
+    --warning: 38 92% 50%;
+
+    --sidebar-background: 210 20% 96%;
+    --sidebar-foreground: 222 30% 30%;
+    --sidebar-primary: 175 80% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 93%;
+    --sidebar-accent-foreground: 222 30% 30%;
+    --sidebar-border: 214 20% 88%;
+    --sidebar-ring: 175 80% 38%;
+  }
 }
 
 @layer base {
@@ -83,6 +129,7 @@
   .glass-card-hover:hover {
     border-color: hsl(var(--primary) / 0.3);
     box-shadow: 0 0 30px hsl(var(--glow-primary));
+    transform: translateY(-2px);
   }
 
   .glow-text {
