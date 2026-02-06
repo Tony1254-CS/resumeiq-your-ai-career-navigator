@@ -9,6 +9,8 @@ import WeaknessDetector from "@/components/WeaknessDetector";
 import RewriteAssistant from "@/components/RewriteAssistant";
 import ExplainabilityPanel from "@/components/ExplainabilityPanel";
 import CareerInsights from "@/components/CareerInsights";
+import ResumeHeatmap from "@/components/ResumeHeatmap";
+import HiringManagerSimulator from "@/components/HiringManagerSimulator";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Dashboard = () => {
@@ -30,7 +32,7 @@ const Dashboard = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="space-y-4 w-full max-w-6xl px-4">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <div key={i} className="skeleton-shimmer h-32 w-full" />
           ))}
         </div>
@@ -40,7 +42,7 @@ const Dashboard = () => {
 
   const stagger = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.1 } },
+    show: { transition: { staggerChildren: 0.12 } },
   };
 
   const fadeUp = {
@@ -52,8 +54,9 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="floating-orb w-[500px] h-[500px] bg-primary/10 -top-60 -right-60 animate-pulse-glow" />
       <div className="floating-orb w-[400px] h-[400px] bg-accent/10 bottom-0 -left-40 animate-pulse-glow" />
+      <div className="floating-orb w-[300px] h-[300px] bg-primary/5 top-1/2 right-1/4 animate-float" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <motion.button
@@ -102,7 +105,7 @@ const Dashboard = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          AI-powered resume intelligence for your target role
+          AI-powered career intelligence for your target role
         </motion.p>
 
         {/* Dashboard Grid */}
@@ -112,6 +115,7 @@ const Dashboard = () => {
           initial="hidden"
           animate={isLoaded ? "show" : "hidden"}
         >
+          {/* Row 1: Score + Skill Radar */}
           <motion.div className="lg:col-span-1" variants={fadeUp}>
             <ScorePanel score={result.match_score} confidence={result.confidence_level} />
           </motion.div>
@@ -120,6 +124,23 @@ const Dashboard = () => {
             <SkillMap matched={result.matched_skills} missing={result.missing_skills} />
           </motion.div>
 
+          {/* Row 2: Hiring Manager Simulator */}
+          <motion.div className="lg:col-span-3" variants={fadeUp}>
+            <HiringManagerSimulator
+              decision={result.hiring_manager_decision}
+              feedback={result.hiring_manager_feedback}
+              strengths={result.strength_areas}
+              risks={result.risk_areas}
+              alternativeRoles={result.alternative_roles_suggestions}
+            />
+          </motion.div>
+
+          {/* Row 3: Resume Heatmap */}
+          <motion.div className="lg:col-span-3" variants={fadeUp}>
+            <ResumeHeatmap sections={result.resume_sections} />
+          </motion.div>
+
+          {/* Row 4: Explainability + Weakness */}
           <motion.div className="lg:col-span-2" variants={fadeUp}>
             <ExplainabilityPanel keywords={result.keyword_coverage} summary={result.career_fit_summary} />
           </motion.div>
@@ -128,10 +149,12 @@ const Dashboard = () => {
             <WeaknessDetector suggestions={result.improvement_suggestions} />
           </motion.div>
 
+          {/* Row 5: Rewrite Assistant */}
           <motion.div className="lg:col-span-3" variants={fadeUp}>
             <RewriteAssistant original={result.rewritten_bullet.original} improved={result.rewritten_bullet.improved} />
           </motion.div>
 
+          {/* Row 6: Career Insights */}
           <motion.div className="lg:col-span-3" variants={fadeUp}>
             <CareerInsights
               strengths={result.strength_areas}

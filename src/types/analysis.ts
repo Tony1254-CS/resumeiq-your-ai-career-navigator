@@ -13,6 +13,12 @@ export interface KeywordCoverage {
   found: boolean;
 }
 
+export interface ResumeSection {
+  text: string;
+  rating: "strong" | "moderate" | "weak";
+  reason: string;
+}
+
 export interface AnalysisResult {
   match_score: number;
   confidence_level: string;
@@ -28,4 +34,7 @@ export interface AnalysisResult {
   risk_areas: string[];
   career_fit_summary: string;
   hiring_manager_feedback: string;
+  hiring_manager_decision: "Yes" | "Maybe" | "No";
+  alternative_roles_suggestions: string[];
+  resume_sections: ResumeSection[];
 }

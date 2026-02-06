@@ -52,8 +52,23 @@ export const mockAnalysisResult: AnalysisResult = {
     "No evidence of CI/CD pipeline management",
     "Limited mention of testing methodologies",
   ],
-  career_fit_summary: "You're a strong frontend candidate with 78% alignment to this role. Your React and TypeScript skills are excellent matches. The main gaps are in cloud infrastructure and DevOps practices. Adding even basic AWS or Docker experience would significantly boost your profile. Consider highlighting any backend work or API design experience more prominently.",
-  hiring_manager_feedback: "This candidate shows solid frontend fundamentals and would be productive quickly on our React codebase. However, I'd want to see some cloud experience before extending an offer for this senior role. Worth a technical screen to assess system design thinking.",
+  career_fit_summary: "You're a strong frontend candidate with 78% alignment to this role. Your React and TypeScript skills are excellent matches. The main gaps are in cloud infrastructure and DevOps practices.",
+  hiring_manager_feedback: "This candidate shows solid frontend fundamentals and would be productive quickly on our React codebase. However, I'd want to see some cloud experience before extending an offer for this senior role.",
+  hiring_manager_decision: "Maybe",
+  alternative_roles_suggestions: [
+    "Frontend Engineer (Mid-Level)",
+    "React Developer",
+    "UI/UX Developer",
+    "JavaScript Engineer",
+  ],
+  resume_sections: [
+    { text: "5+ years of experience building web applications with React and TypeScript", rating: "strong", reason: "Directly matches the core requirements of the role" },
+    { text: "Built REST API integrations for e-commerce platform", rating: "strong", reason: "API experience is explicitly listed as a requirement" },
+    { text: "Worked on various frontend features and bug fixes", rating: "weak", reason: "Too vague — lacks metrics, impact, and specificity" },
+    { text: "Bachelor's degree in Computer Science", rating: "moderate", reason: "Relevant but not a differentiator for a senior role" },
+    { text: "Proficient in HTML, CSS, JavaScript", rating: "moderate", reason: "These are table-stakes skills; listing them dilutes stronger qualifications" },
+    { text: "Collaborated with cross-functional teams in Agile sprints", rating: "strong", reason: "Demonstrates teamwork and Agile methodology experience" },
+  ],
 };
 
 export function simulateAnalysis(): Promise<AnalysisResult> {
