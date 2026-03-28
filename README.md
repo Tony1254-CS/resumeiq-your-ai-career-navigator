@@ -81,11 +81,11 @@ The goal is to make AI intelligence both powerful and visually understandable.
 
 ## 🧩 Tech Stack
 
-- AI Engine: Gemini Flash (via Lovable Cloud)
+- AI Engine: GPT-4.1 mini
 - Frontend: Modern component-based web architecture
 - Backend: Serverless AI workflow
 - Deployment: Vercel
-- Development Platform: Lovable
+- Development Framework: Vite + React
 
 ---
 
